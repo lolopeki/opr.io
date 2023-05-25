@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Hello World</h1>
+<p>OPR SKRIPTA
+    MODELIRANJE UPORABOM GEOMETRIJSKIH OBJEKATA
+    PREDNOSTI:
+    • brzi algoritmi za prikaz i kreiranje
+    • manja kompleksnost baze crteža
+    • bolja mogućnost razmjene podataka sa drugim CAD programskim aplikacijama
+    • manji zahtjevi za memorijom te računalnim vremenom
+    PROBLEMI:
+    • mogućnost neispravnog modela
+    • mogućnost kreiranja nekompletnih modela
+    • ograničena uporabivost
+    • potreban unos svih geometrijskih informacija
+    kruto tijelo – idealizirano tijelo nepromjenjiva oblika i volumena
+    računalni modeli moraju zadovoljiti karakteristike:
+    • krutost – konfiguracija apstraktnog tijela mora biti neovisna o lokaciji i orijentaciji tijela u 
+    prostoru
+    • homogena trodimenzionalnost – tijelo mora imati svoju unutrašnjost, a oplošje tijela ne 
+    smije imati visećih bridova ili ploha
+    • konačnost – tijelo mora zauzimati konačan dio prostora
+    • konačnost opisa – model tijela u 3D prostoru mora se moći opisati konačnim brojem
+    pojmova
+    • zatvorenost pod osnovnim i nekim Boolean operacijama – osnovne transformacije 
+    (translacija i/ili rotacija) ili operacije dodavanja i oduzimanja kada se primjene na tijelo 
+    moraju rezultirati također tijelom
+    • određenost oplošja – oplošje tijela mora jednoznačno definirati prostor unutar tijela 
+    (volumen)
+    Sheme prikaza modela krutih tijela mogu se podijeliti u tri kategorije:
+    • dekompozicijski modeli 
+    • konstruktivni modeli krutih tijela 
+    • rubni prikaz 
+    DEKOMPOZICIJSKI MODELI
+    • predstavljaju skup ili kolekciju jednostavnih modela povezanih operacijom “lijepljenja”
+    • Načini dekompozicije elemenata:
+    o podjela s jednakim korakom
+    o dijeljenje na četvrtine 2D
+    o dijeljenje na osmine 3D
+    o volumske čelije
+    KARAKTERISTIKE:
+    o omogućuju aproksimativni (približan) prikaz
+    o prikaz se mijenja u slučaju promjene položaja,
+    o isti skup ćelija može opisivati nekoliko objekata
+    o jednostavna uporaba Boolean operatora kod ćelija
+    KONSTRUKTIVNI MODELI jt
+    • smatra se podrijetlom CGS-a
+    • R. A. Goldstein i R. Nagela 1971.
+    • CSG kao shemu za izradu krutih modela je formalizirao A. Ricci
+    • MODELI: kreirani kao kombinacija geometrijskih primitiva i Boolean operacija
+    ▪ Geometrijski primitivi se kreiraju uporabom POLUPROSTORA
+    POLUPROSTORI
+    o Poluprostorni modeli - kreiraju se kombinacijom instanci poluprostornih primitiva i 
+    Boolean operatora
+    o Poluprostorni primitivi - kreiraju se dijeljenjem prostora, najčešće, u dva dijela tvoreći dva 
+    poluprostora koja oba mogu biti beskonačna ili jedan konačan, a drugi beskonačan
+    o Osobine krutih modela izrađenih uporabom poluprostra:
+    • mogući neograničeni kruti modeli,
+    • provjera ispravnosti oslanja se na korisnika,
+    • modeliranje poluprostorima je nezgrapno i neintuitivno
+    CSG
+    • prikaz je uređeni binarni graf (stablo) čiji međučvorovi označavaju osnovne operatore i 
+    pomake, a krajnji čvorovi ili osnovne oblike ili pomake
+    CSG stablo se sastoji od:
+    o opisa regulariziranih Boolean operatora ili transformacija
+    o opisa primitiva
+    KARAKTERISTIKE:
+    o mogućnosti ovise o klasama dostupnih poluprostora te o dostupnom osnovnim oblicima
+    o CSG stablo osigurava ispravnost modela te omogućuje kontrolu istih
+    o CSG stablo opisuje jednoznačan, ali ne jedinstven prikaz modela jedan od razloga je i 
+    taj što se model može kreirati kombinacijom različitih osnovnih oblika
+    o budući da je skup Boolean operatora sastavni dio CSG stabla, unija dva različita CSG 
+    stabla kreirat će novo ispravno CSG stablo
+    o u većini slučajeva za prikaz CSG modela koristi se rubni prikaz
+    PREDNOSTI:
+    • jednostavno kreiranje modela krutih tijela (minimalan broj koraka)
+    • način zapisa rezultira sažetoj bazi podataka 
+    • može se pretvoriti u rubni prikaz
+    • primitivi se kreiraju na osnovu poluprostora
+    NEDOSTACI:
+    • dozvoljeni su samo Boolean operatori, iz tog razloga je nemoguće kreirati neobične 
+    oblike
+    • zahtjeva veliku količinu procesorskog vremena za pripremu prikaza
+    RUBNI PRIKAZ
+    - 1970-ih Ian C. Braid u Cambridgeu i Bruce G. Baumgart u Stanfordu
+    - temelji se na pogledu na kruto tijelo pomoću ploha. Modelirani objekt se potpuno definira 
+    i prikazuje preko povezanih ploha
+    - danas najrašireniji način prikaza 3D modela
+    - Glavni elementi rubnog prikaza su topologija i geometrija
+    o Elementi topologije su plohe, bridovi i vrhovi
+    - topologija – opisuje relacije između različitih objekata
+    - geometrija – koordinate vrhova
+    PREDNOSTI:
+    • povijesno popularan način kreiranja modela blisko povezan sa izradom tehničke 
+    dokumentacije
+    • prikladan alat za modeliranje oblika trupa zrakoplova i vanjskih površina modela koje je 
+    teško izraditi uporabom primitiva
+    • relativno je jednostavno pretvoriti rubni prikaz u žičani model zbog sličnosti zapisa
+    • u aplikacijama rubni prikaz je pouzdan i konkurentan CSG modelima
+    NEDOSTACI:
+    • zahtijeva veliku količinu memorijskog prostora jer pohranjuje eksplicitni zapis 
+    definicije rubnog prikaza modela
+    • znatno je opširniji od CSG zapisa
+    • nije pogodan za CAM aplikacije (faceti)
+    Topološke relacije na osnovu kreiranog stabla:
+    - kruto tijelo se sastoji od skupa faceta
+    - svaka ploha obrubljena je skupom bridova
+    o skup bridova je uređen skup tako da tvori zatvorenu petlju
+    - bridove dijele susjedne plohe koje se sijeku na bridu
+    - bridovi su ograničeni susjednim vrhovima
+    - vrhove dijele susjedni bridovi koji se sijeku u njima
+    IZDVAJAJU SE DVA PRISTUPA:
+    Opis vrhova modela
+    • Pojedini vrhovi se pridružuju površinama. Vrhovi pojedinih površina prikazuju se u 
+    nepromjenjivom redu. Geometrijske informacije o površinama se ne zapisuju eksplicitno 
+    već putem koordinata vrhova i njihovog odnosa prema površinama
+    o pohrana informacija za zajedničke vrhove (izbjegavanje redundancije)
+    o jednostavno je modificirati jedne vrh
+    o teško je pronaći poligone koji dijele rub
+    o višestruko crtanje i izrezivanje rubova
+    Opis bridova modela
+    • Model je opisan pomoću opisa bridova koji tvore zatvorenu petlju tj. omeđuju površinu. 
+    Prilikom zapisivanja vodi se računa o orijentaciji svakog brida. Površine se orijentiraju na 
+    taj način da su bridovi navedeni u smjeru kazaljke na sati gledano izvana na model
+    • rješava problem višestrukog crtanja i izrezivanja rubova
+    • teško je pronaći sve rubove koji dijele vrhove
+    EULEROVI OPERATORI
+    - su osnovni operatori za:
+    o dodavanje i brisanje vrhova, rubova i ploha
+    o stvaranje i brisanje povezanih komponenti granica objekta
+    o stvaranje i brisanje prolaznih rupa 
+    - Euler – Pointcare jednadžbom određuje se ispravnost Rubnog prikaza
+    CGRM
+    - Definiran 1992. godine
+    - koncentrira se na sučelja između računalne grafike i vanjskih objekata
+    - Četiri važna vanjska objekta, prema CGRM, su programska aplikacija, operator
+    (korisnik), prikupljanje podataka (metafile) i revizijski trag (metafile)
+    Po CGRM modelu grafički sustav je podijeljen na 5 jedinica koje se nazivaju okolinama:
+    • konstrukcijska - sadrži grafički model definiran u terminima i jedinicama aplikacije
+    • virtualna - grafičku scenu koju sačinjavaju transformacije modela iz konstrukcijske 
+    okoline
+    • prostor promatranja - sadrži idealnu sliku koja se tvori transformacijom scene iz 
+    virtualne okoline s defiliranim smjerom gledanja i gledišnom točkom
+    • logička - sadrži sliku koja je priređena uzimajući u obzir osnovna svojstva prikaznih 
+    uređaja kao što su minimalna širina crte i broj raspoloživih boja. 
+    • realizacijska - sadrži krajnji prikaz potpuno prilagođen prikazanom uređaju
+    HOOPS
+    - pruža fleksibilno upravljanje hijerarhijskim scenama te je sposoban za upravljanje nizom 
+    grafičkih objekata
+    - HOOPS Visualize trenutno je najmoćnija, prijenosna i cjelovita 3D biblioteka
+    CAD JEZGRA
+    - osnova je svake CAD programske aplikacije. Koristi se za opis geometrijskih entiteta te 
+    manipulaciju istima
+    - najčešće: ACIS, Parasolid i Granite
+    kerneli
+     predstavlja programski kod u kojem je određena CAD programska aplikacija kreirana
+     sastoji od tri glavna dijela: dijela za kreiranje geometrije, dijela za rješavanje
+    ograničenja i dijela za pretvorbu formata
+    Tržištem CAD jezgri trenutno dominiraju Parasolid i ACIS
+    - Najnovija jezgra – Russian Geometric Kernal
+    PARASOLID - originalno razvijen od strane tvrtke ShapeData
+    ACIS
+    - izrađena je na osnovu jezgre Romulus
+    - omogućuje izradu hibridnih modela
+    CGM
+    - razvijen od strane Dassault Systemes
+    - ima kvalitetno definiran zapis geometrije i topologije kao i geometrijske operacije, no 
+    pokazuje nedostatke u upravljanju zapisom
+    GRANITE
+    - izrađena je na u tvrtki PTC
+    - temeljena je na modeliranju značajkama
+    - cilj je u potpunosti omogućiti istodobno inženjerstvo
+    prednosti uporabe dobro definiranih standardnih metoda neovisnih o proizvođaču:
+    • Prenosivost podataka između aplikacija
+    • Prenosivost stručnih znanja I vještina
+    • Prenosivost aplikacija neovisno o sklopovlju i operacijskom sustavu
+    Baza standardnih dijelova prema DIN standardu sastoji se od:
+    • programa koji opisuje geometriju varijantnih dijelova
+    • datoteke osobina
+    GODINE
+    • IGES 1980
+    • DXF 1982
+    • STEP-ISO 10 303 1984
+    • Parasolid XT 1989
+    • VDA FS 1999
+    STEP – ISO 10 303
+    Najčešće se u strojarstvu koriste:
+    - AP203 Configuration Controlled Design
+    - AP214 Core Data for Automotive MechanicalDesign Process
+    sastoji se od:
+    • aplikativnog dijela – pokriva pojedina područja primjene i daje mogućnost izbora 
+    elemenata standarda koji su interesantni za određeno područje
+    • logičkog dijela – tvore ga podaci o proizvodu (geometrija, svojstva, materijal, 
+    tolerancije,..), opis se sastoji od jedne ili više shema koje obuhvaćaju entitete s 
+    atributima, pravilima, ograničenjima
+    • fizičkog (implementacijskog) dijela – ovaj dio definira oblik i format zapisa u datoteke
+    MODELIRANJE UPORABOM ZNAČAJKI
+    - tehnika modeliranja koja omogućuje integriranje geometrijskog modeliranja i 
+    konstruiranja
+    - Jedna od osobina ove tehnike modeliranja je obogaćenje podataka vezanih za prikaz 
+    proizvoda semantičkim informacijama
+    - Dodatne semantičke informacije omogućuju napredniju i direktniju komunikaciju u 
+    procesu konstruiranja
+    Faze životnog vijeka proizvoda su: (sve navedeno)
+    • funkcionalna razrada, konceptualna razrada, osnutak (embodiment)
+    • tehnička zarada, planiranje procesa izrade proizvoda, izrada proizvoda
+    • izrada dijelova proizvoda, sklapanje, instalacija, održavanje i nadogradnja
+    • rastavljanje, ponovna uporaba i recikliranje
+    PLM – predstavlja skup rješenja koja omogućuju cjeloživotno praćenje podataka o proizvodu 
+    te omogućuje komunikaciju i razmjenu informacija između učesnika u proizvodnom procesu
+    PDM – dio PLM sustava/ili samostalna instalacija koja omogućuju upravljanje podacima o 
+    proizvodu u različitim fazama procesa konstruiranja
+    NEDOSTACI GEOMETRIJSKIH MODELA
+    • Zamorno konstruiranje – kreiranje geometrijskog modela je spor proces u kojem 
+    konstruktor troši puno vremena
+    • Nedostatak podrške design intent-u – problem s geometrijskim modelima je i u tome 
+    što se ne može odrediti razlika između geometrije koja zadovoljava probleme kreiranja 
+    modela od onih koji su tu da bi zadovoljili neke funkcionalne zahtjeve ili zbog nekih 
+    drugih zahtijeva kao što su izdržljivost, snaga, izradivost
+    • Jednorazinska struktura – znači da se čitava geometrijska struktura modela mora 
+    unaprijed znati tj. biti definirana
+    • Mikroskopski podaci – podaci u geometrijskom modelu se nalaze na niskom, 
+    mikroskopskom nivou
+    2 pristupa kreiranja modela: parametarski i varijacijski
+    Njihovom uporabom:
+    • kreira se nominalna topologija konstrukcije uporabom standardnih tehnika kreiranja 
+    geometrije ili krutih tijela
+    • opisuju se zahtijevane osobine između entiteta modela dodajući geometrijska 
+    ograničenja
+    • sustav primjenjuje dodana geometrijska ograničenja na modelu
+    • kreiranje različitih varijanti modela promjenom vrijednosti dimenzija, prilikom svake 
+    promjene kreira se nova instanca modela te se valoriziraju nametnuta ograničenja
+    PARAMETARSKI
+    - ovom metodom ograničenja se rješavaju sekvencijalnom uporabom vrijednosti varijabli 
+    te njihovim izračunavanjem
+    - Pri čemu je svaka vrijednost varijable izračunata kao funkcija prethodno primijenjene
+    varijable
+    - Redoslijed izračunavanja i primjenjivanja varijabli fleksibilan je i određen constraint
+    propagation algoritmom 
+    - Rješavanje ograničenja je brzo, ali postoje problemi prilikom rješavanje međusobno 
+    povezanih ograničenja
+    VARIJACIJSKI
+    - ovom metodom ograničenja se rješavaju kreiranjem sustava jednadžbi koje predstavljaju 
+    ograničenja te rješavanjem istih istovremeno
+    - Mogućnost rješavanja međusobno spregnutih ograničenja, ali mnogo sporije nego 
+    parametarski model
+    - Postoje problemi prilikom određivanje nekonzistentnosti u modelu
+    - Redosljed rješavanja nije bitan
+    temeljeni su na pristupu modeliranju zadovoljenjem ograničenja
+    OGRANIČENJA
+    Ograničenja možemo podijeliti u tri kategorije: 
+    • geometrijska ograničenja
+    • dimenzijska ograničenja
+    • algebarska ograničenja
+    Osnovna motivacije za razvoj značajki je u tome što konvencionalne geometrijske metode 
+    izrade modela proizvoda imaju slične mane
+    Za određivanje značajke u modelu proizvoda razvijena su tri načina koji ne ovise o primjeni: 
+    • prepoznavanje značajki 
+    • konstruiranje značajkama
+    • pretvorba značajke
+    PREPOZNAVANJE ZNAČAJKI
+    - izvodi se iz geometrijskih modela proizvoda
+    - uglavnom se koristi u CAPP sustavima
+    KONSTRUIRANJE ZNAČAJKAMA
+    - model proizvoda može biti izgrađen korištenjem (konstrukcijskih) značajki
+    PRETVORBA ZNAČAJKI
+    - koristi se između različitih korisničkih programa koji koriste konstruiranje značajkama, 
+    npr. pretvorba značajki iz programa CREO u program CATIA
+    Napredak parametarskog i modeliranja pomoću značajki uvelike je rezultat rada 
+    Samuel P. Geisbera
+    - 1985. godine osnovao je PTC
+    ZNAČAJKE
+    Prema J. Shah sve značajke moraju minimalno zadovoljiti sljedeće zahtjeve:
+    • značajka mora biti fizički sastavni dio dijela (part),
+    • značajki se mora pridružiti u generički oblik,
+    • značajka mora imati „inženjersko” značenje,
+    • značajka mora imati imaju predvidljiva svojstva
+    FBD – podatkovna struktura koja prikazuje dio ili sklop pretežno u smislu značajki koji ga 
+    sačinjavaju
+    KATEGORIJE ZNAČAJKI
+    • značajke oblika ("Form feature") – predstavlja dio nominalne geometrije, stereotipni 
+    oblici
+    • značajke tolerancije ("Tolerance feature") – odmak od nominalnog oblika, veličine ili 
+    položaja
+    • značajke sklopa ("Assembly feature") – grupiranje različitih značajki u svrhu definiranja 
+    relacija u sklopu, kao što su uvjeti sklapanja, relativan položaj ili orijentacija dijela, različiti 
+    oblici spojeva, kinematičke relacije
+    • značajke funkcije ("Functional feature") – skup značajki vezanih za određenu funkciju, 
+    može uključivati "design intent", negeometrijske parametre vezane za funkciju ili učinak
+    • značajke materijala ("Material features") – sastav materijala, tretman, uvjeti, itd
+    OSOBINE ZNAČAJKI
+    Mogu se podijeliti na unutarnje i vanjske
+    Unutarnje osobine su osobine koje su neovisne u odnosu na ostale značajke:
+    • geometrijski oblik
+    • imena parametara
+    • korisnički definirane dimenzije i parametri
+    • ovisne dimenzije i parametri
+    • tolerancije oblika i položaja
+    • tolerancije orijentacije
+    Vanjske osobine uključuju dvije ili više značajki:
+    • parametri i dimenzije deriviranih značajki
+    • pozicija značajke
+    • orijentacija značajke
+    • ograničenja veličine, lokacije ili orijentacije značajke
+    • vanjske tolerancije
+    Neke od negeometrijskih osobina su:
+    • ime materijala
+    • identifikacijski broj materijala
+    • osobine materijala
+    • načini obrade
+    • primjenljivi načini izrade
+    Grupiramo ih u generičke i specifične
+    Atribut – svojstvo ili karakteristika značajke, dijelimo ih na:
+    - Atribute sklopova – sadrže informacije o relativnim pozicijama dijelova ili značajki
+    - Atribute dijelova – sadrže specifikacije materijala, broj dijela, administrativne podatke…
+    - Atribute entiteta – sadrže informacije o kvaliteti površinske obrade i tolerancije oblika i 
+    položaja
+    - Atribute relacija – sadrže informacije o relativnim odnosima
+    - Atribute značajki – pozicija, orijentacija, oblik, dimenzija…
+    KOMPOZITNE ZNAČAJKE
+    Dijelimo ih na one s ponavljanjem (šablone) bez ponavljanja (složene)
+    U okviru standarda STEP dio 48 definirana je podjela značajki na volumenske, tranzicijske 
+    i šablone
+    Neki generički tipovi kontrole ispravnosti:
+    • Ispravnost priključivanja - uključuje kontrolu kompatibilnosti prema susjednim i drugim 
+    značajkama
+    • Granice dimenzija - ograničenja na veličine vrijednosti parametara 
+    • Granice lokacije - ograničenja na poziciju i orijentaciju značajke.
+    • Kontrola interakcije - provjera interakcije jedne značajke prema drugoj
+    Derivacija značajki ovisno o zadatku naziva se preslikavanje, transformacija ili 
+    transmutacija značajki
+    NEDOSTACI ZNAČAJKI
+    • značajke su samo vrsta makro oblika
+    • postoji samo jedan model značajke proizvoda
+    • ograničene su mogućnosti suradnje pri modeliranju
+    • ograničena je domena oblika
+    KONFIGURACIJE
+    - omogućuju izradu većeg broja varijacija dijelova i sklopova u okviru pojedinog 
+    dokumenta
+    - Nude jednostavniji način izrade i upravljanja familijama modela koji imaju različite 
+    dimenzije, komponente ili druge parametre
+    - Umjesto da kreirate model ispočetka, korištenjem konfiguracija moguće je kreirati 
+    novi model iz već postojećeg
+    Izrada konfiguracija može se ostvariti na sljedeći način:
+    • Ručnom izradom
+    • Korištenjem Modify Configurations dijaloškog okvira – Omogućava jedinstveni 
+    pregled konfiguracija i dodijeljenih vrijednosti i postavki
+    • Korištenjem Design Table opcija – moguće je konfigurirati većinu istih parametara kao 
+    i kod ručne izrade konfiguracija
+    Moguće je konfigurirati:
+    Dijelove (part)
+    • Dimenzije na razini značajki i skica
+    • Uključenost/isključenost značajki
+    • Materijal
+    • Svojstva
+    Sklopove (assembly):
+    • Korištene komponente
+    • Dimenzije na razini značajki sklopa i veza komponenata
+    • Uključenost/isključenost komponenti, značajki sklopa i veza komponenata
+    • Svojstva
+    ADITIVNA PROIZVODNJA I CAD
+    Aditivna proizvodnja – skup tehnologija koje omogućuju izradu fizičkih proizvoda, direktno 
+    iz 3D CAD modela, dodavanjem materijala samo tamo gdje je potrebno, najčešće sloj po sloj
+    glavne tehnologije aditivne proizvodnje: MEX, DED, VPP, MJT, SHL, PBF
+    Nudi nove mogućnosti u oblikovanju proizvoda kroz:
+    • Geometrijsku kompleksnost (mogućnost izrade vrlo kompleksnih geometrija)
+    • Hijerarhijsku kompleksnost (značajke mogu biti oblikovane na više razina veličina)
+    • Kompleksnost materijala (materijal se procesuira u pojedinoj točki ili sloju kao 
+    pojedinačni materijal ili kombinacija materijala)
+    • Funkcionalnu kompleksnost (funkcionalni proizvodi (sklopovi) se mogu izraditi u 
+    jednom procesu)
+    BRZINA PROIZVODNJE
+    Ovisi o:
+    • Vrijeme za pripremu
+    • Vrijeme izrade
+    • Vrijeme za naknadnu obradu
+    • Ukupno vrijeme dobave
+    PREDNOSTI
+    • Kompleksnost dijelova
+    • Izrada funkcionalnih sklopova
+    • Smanjenje broja dijelova
+    • Masovna prilagodba korisnicima
+    • Sloboda oblikovanja
+    • Izrada lakih konstrukcija
+    • On-Demand proizvodnja – proizvod se proizvodi tek kad ga kupac naruči
+    On-Demand proizvodnja omogućuje uštede kroz:
+    o Nema potrebe za skladištenje dobara
+    o Rezervni dijelovi su pohranjeni u digitalnom obliku
+    o Jedan stroj za AP-u može izrađivati veliku lepezu proizvoda
+    o Proizvodnja može biti lokalna na temelju 3D modela koji je poslan s bilo kojeg mjesta na 
+    svijetu
+    LANAC ADITIVNE PROIZVODNJE
+    izrada CAD modela → konverzija u STL/AMF format → priprema parametra i generiranje 
+    potpune strukture → priprema stroja → izrada (build) → naknadna obrada
+    Najčešći formati korišteni u AP: STL, AMF, 3MF
+    STL (Standard Tessellation Language)
+    • Zapisuje samo površinsku geometriju
+    • Ne pohranjuje informacije o boji, teksturi,....
+    • Jedan do najrasprostranjenijih formata
+    AMF (Additive manufacturingfile format) – može pohraniti informacije o:
+    • Boji
+    • Materijali
+    • Laticama
+    • grupama objekata
+    3MF (3D ManufacturingFormat)
+    • Baziran na XML formatu zapisa
+    • Osmišljen za upotrebu u AP
+    • Sadrži sve potrebne informacije o modelu (oblik), materijalu i svojstvima
+    TOPOLOŠKA OPTIMIZACIJA
+    - Matematička metoda koja optimizira distribuciju materijala u prostoru za zadani set 
+    opterećenja, rubnih uvjeta, ograničenja
+    KARAKTERISTIKE
+    o Smanjuje troškove proizvodnje
+    o (Najčešće) Smanjuje vrijeme proizvodnje
+    o Omogućuje izradu lakih konstrukcija –uštede tijekom korištenja proizvoda
+    o Zahtijeva upotrebu računalnih algoritama za generiranje topološki optimiranih oblika
+    o Zahtjeva upotrebu FEM analize i matematičkih algoritama
+    STRUKTURE LATICA
+    - Strukture temeljne na ponavljajućem uzorku osnovnog oblika ćelije
+    - Često se temelje na biološkim oblicima
+    PREDNOSTI
+    • Štede materijal i masu
+    • Mogu biti samo potporne
+    • Služe za apsorpciju energije
+    • Služe za termalnu izolaciju
+    OBLICI
+    • Stohastičke latice – Nasumično poredane latice različitih veličina
+    • Parametarske latice – Kontrola pomoću parametara, Često bazirana na žiroidnim i
+    primitivnim oblicima
+    GENERATIVNI OBLICI
+     Primjeri CAD sutava
+     Creo Generative Design Extension
+     nTopology
+     Autodesk Revit
+     Siemens NX
+     CATIA Generative Design Engineering
+     Inspire by Altair
+    POVRATNO INŽENJERSTVO I 3D SKENIRANJE
+    - Omogućuje izradu 3D modela kada originalna tehnička dokumentacija nije dostupna
+    - Upotrebom 3D skeniranja moguće je dobiti 3D model fizičkog proizvoda
+    OPR
+    PRILAGODBA CAD APLIKACIJA
+    uključuje razvoj dodatnih programskih alata ili podešavanje načina rada aplikacije 
+    potrebama tvrtke
+    Razlozi za prilagodbu:
+    • proširivanje mogućnosti aplikacije
+    • pojednostavljenje poslova
+    • skraćivanje vremena
+    • smanjenje grešaka
+    • automatizacija poslova
+    • razvoj korisnih alata
+    • razvoj dodatnih modula
+    • integracija s postojećim aplikacijama
+    prevoditelj (compiler) - je računalni program koji čita program napisan u izvornom jeziku, te 
+    ga prevodi u istovjetni program u ciljnom (najčešće strojnom) jezik
+    interpreter (interpreter) - je računalni program koji izvršava druge programe, a osnovna 
+    karakteristika interpretera je da se naredbe prevode u trenutku izvođenja programa
+    BIBLIOTEKE
+    statička biblioteka - skup rutina, vanjskih funkcija i varijabli koje se rješavaju u pozivatelju 
+    prilikom prevođenja te se kopiraju u ciljnu aplikaciju od strane prevodioca, linkera, ili bindera
+    dinamička (dijeljena) biblioteka – može smanjiti veličinu programa upotrebom dinamičkog 
+    povezivanja, ali obično postoji kompromis u izvedbi
+    - Ove biblioteke obično imaju ekstenziju DLL, OCX (za biblioteke koje sadrže ActiveX
+    kontrole), no mogu biti i .drv, .cpl
+    - DLL – biblioteka koja sadrži kôd i podatke koje može koristiti više od jednog programa u
+    isto vrijeme
+    COM
+    - Component Object Model je binarno standardizirano sučelja za programske aplikacije
+    - uveden 1993.
+    - Koristi se kako bi se omogućila komunikacija između procesa te dinamičko stvaranje 
+    objekata u velikom rasponu programskih jezika
+    - osnova za nekoliko drugih Microsoftovih tehnologija i okvira, uključujući i OLE, OLE 
+    Automation, Browser Helper Object, ActiveX, COM+, DCOM, Windows shell, DirectX, 
+    UMDF i Windows Runtime
+    - jezično neutralan način implementacije objekata koji se mogu koristiti u okruženjima 
+    različitim od onog u kojem su stvoreni
+    ActiveX
+    - je Microsoft okvir kojim Microsoft prilagođava svoj raniji model COM te OLE 
+    tehnologiju upravljanja sadržajima
+    - predstavljen 1996.
+    - ActiveX kontrole sadrže prevedeni kôd
+    VB.NET (Visual Basic .NET) – Visual Basic portiran na .NET Framework te uključen u Visual 
+    Studio IDE
+    VB (Visual Basic 6) – verzija BASIC programskog jezika koje je nadograđena i proširena 
+    dodatnim mogućnostima, jedna od važnijih je mogućnost kreiranja GUI (grafičkih sučelja) te 
+    integrirana razvojna okolina (IDE)
+    VBA (Visual Basic for Applications) – je implementacija Microsoft Visual Basicevent-driven 
+    programskog jezika nakon prestanka podrške za Visual Basic 6. VBA kôd se može izvršavati 
+    samo unutar „host” aplikacije
+    VBScript (Visual Basic Script) – je podskup VBA. To je jednostavna inačica basic jezika
+    Visual Basic
+    - treća generacija event-driven programskog jezika i integriranog razvojnog okruženja 
+    (IDE) razvijenog od strane tvrtke Microsofta
+    - omogućuje izradu programskih aplikacija RAD pristupom, s podrškom za GUI, DAO, 
+    RDO te ActiveX
+    Visual Basic (.NET)
+    - izvorno nazvan Visual Basic .NET (VB.NET), je objektno orijentirani programski jezik s 
+    više paradigmi, implementiran na .NET, Mono i .NET Framework
+    Klasa (Class) - osnovni tvorbeni blok objektno orijentiranog jezika kao što je Java ili C++, 
+    klasa predstavlja uzorak koji opisuje podatke i ponašanje povezane s instancama (instance) 
+    te klase
+    Nasljeđivanje (Inheritance)
+    - Naziv nasljeđivanje odnosi se na činjenicu da jedna klasa može naslijediti dio ili svu
+    strukturu i ponašanje od druge klase. 
+    - Klasa koja nasljeđuje zove se podklasa (subclass) klase od koje nasljeđuje
+    o Podklasa može nadopunjavati strukturu i ponašanje klase koju nasljeđuje, a može i 
+    zamijeniti ili izmijeniti naslijeđeno ponašanje, ali ne i naslijeđenu strukturu
+    Collection (zbirka)
+    - klasa koja se koristi za predstavljanje skupa sličnih vrsta podataka kao jedne cjeline
+    SolidWorks Automation Objekti:
+    - Forms
+    - Modules
+    - Class modules
+    Integrirani editor vs. Visual Studio
+    Integrirani editor Visual studio
+    dio „host” aplikacije samostalna aplikacija
+    koristi se isključivo za VBA podržava kreiranje exe i dll aplikacije
+    temelj je projekt podržava razne programske jezike
+    moguće napraviti kodiranje koda omogućuje uključivanje dodatnih „plug-in” 
+    ova
+    ne može napraviti dll ili exe podržava „intelliSense”, refactoring, source 
+    control, database tools
+    PITANJA ZA 2 KOLOKVIJ
+    1. Objasnite probleme vezane za tehničku dokumentaciju kao medija komunikacije između 
+    inženjera.
+    Tehnička dokumentacija zahtjeva interpretaciju od strane inženjera, nemoguće je zapisati 
+    informacije neophodne u drugim fazama životnog vijeka proizvoda
+    2. Sinhorno geometrijsko modeliranje dostupno je u:
+    Creo, Siemens NX
+    3. SLS je:
+    Proces u kojem laserska zraka tali materijal u prahu
+    4. Značajku oblika predstavlja: dio nominalne geometrije, stereotipni oblici
+    5. Topološke relacije kod rubnog prikaza krutih tijela opisuju:
+    Kruto tijelo koje se sastoji od skupa površina, svaka površina obrubljena je skupom 
+    bridova, skup bridova je uređen sklop tako da tvori zatvorenu petlji, bridove dijele 
+    susjedne površine koje se sijeku na bridu, bridovi su ograničeni susjednim vrhovima, 
+    vrhove dijele susjedni bridovi koji se sijeku u njima
+    6. Karakteristika krutog tijela KONAČNOST OPISA definira:
+    Da se model tijela u 3D prostoru mora se moći opisati konačnim brojem pojmova
+    7. RPT tehnologiju karakterizira:
+    visoka cijena izrade, male kolicine komada
+    8. Značajke sklopa su:
+    Skup značajki vezan za sklop kao sto su uvjeti sklapanja, relativan položaj ili orijentacije
+    dijela, različiti oblici spojeva, kinematičke relacije
+    9. Čemu koriste dodatne semantičke informacije u modeliranju uporabom značajki?
+    omogućuju napredniju i direktniju komunikaciju u procesu konstruiranja
+    10.Čemu služe geometrijska ograničenja u modelu?
+    Geometrijska ograničenja služe kao pomoć pri izradi skice, smanjuje se broj potrebnih 
+    parametara i dimenzija
+    11.FDM je:
+    Proces u kojem se termoplastični materijal ekstrudira kroz temperaturno kontroliranu
+    glavu
+    12.Zračenje se koristi kod sljedećih RPT tehnologija:
+    Stereolitography, Selective Laser Sintering
+    13.Načini zadavanja geometrijskih ograničenja su:
+    Implicitni i eksplicitni
+    14.Što je značajka? (odg: sve)
+    • posjeduje inženjersko značenje
+    • ima predvidljive osobine
+    • može se dodijeliti generičkom obliku
+    • može se shvatiti i kao gradivni dio definicije proizvoda ili geometrijskog poimanja 
+    proizvoda
+    15.Provjeru ispravnosti značajki: granice dimenzija karakterizira:
+    ograničenja na veličine vrijednosti parametara (provrt ne može biti veći od modela. Ne 
+    smiju se pojaviti tanki bridovi)
+    16.Brza izrada prototipova je naziv za:
+    • Holoforming, 3d printanje automatiziranu prozivodnju
+    • Uredenje i tehnologiju za izradu prototipova
+    17.Faze životnog vijeka proizvoda su:
+    • funkcionalna razrada, konceptualna razrada, osnutak (embodiment)
+    • tehnička zarada, planiranje procesa izrade proizvoda, izrada proizvoda
+    • izrada dijelova proizvoda, sklapanje, instalacija, održavanje i nadogradnja
+    • rastavljanje, ponovna uporaba i recikliranje
+    18.Koji su načini razvijeni za određivanje značajke u modelu proizvoda?
+    • prepoznavanje značajki 
+    • konstruiranje značajkama
+    • pretvorba značajke
+    19.Koliko značajki uključuju vanjske, a koliko unutarnje osobine?
+    Vanjske uključuju dvije ili vise značajki, unutarnje jednu
+    20.POLYJET je:
+    Proces u kojem se niz sapnica nanosi sloj po sloj fotopolimerni materijal
+    21.SLA je:
+    Proces u kojem laserska zraka otvrdnjava polimer
+    22.Koji su glavni dijelovi CAD jezgre?
+    Dio za kreiranje geometrije, dio za rješavanje ograničenja i dio za pretvorbu formata
+    23.Rubni prikaz krutih tijela:
+    temelji se na pogledu na kruto tijelo pomoću ploha. Modelirani objekt se potpuno definira 
+    i prikazuje preko povezanih ploha
+    24.Karakteristiku krutih tijela HOMOGENA TRODIMENTIONALNOST određuje:
+    Da tijelo mora imati svoju unutrašnjost, a oplošje tijela ne smije imati visećih bridova ili 
+    ploha
+    25.Provjera ispravnosti značajki: granice lokacija karakterizira:
+    ograničenja na poziciju i orijentaciju značajke
+    26.Koje se tehnike kreiranja FBD CAD modela danas koriste?
+    Varijacijski i parametarski
+    27.Kakva je razlika parametara i dimenzija?
+    Dimenzije su nužno vezane za geometriju dok parametri to ne moraju biti
+    28.Koje su značajke jezgre CAD sustava danas u uporabi?
+    ACIS, Parasolid i Granite
+    29.Značajke tolerancije su:
+    odmak od nominalnog oblika, veličine ili položaja
+    30.Razlika između matematički i semantički neispravnih značajki je:
+    Matematičke kontrolira računalni program dok semantičke kontrolira korisnik
+    31.Što je model kreiran uporabom značajki?
+    Podatkovna struktura koja prikazuje dio ili sklop pretežno u smislu značajki koji ga 
+    sačinjavaju
+    32.Koje kategorije značajki se mogu grupirati pod imenom geometrijske značajke?
+    Značajke oblika, značajke tolerancije, značajke sklopa
+    33.Kategorije na koje se mogu podijeliti modeli krutih tijela su:
+    Dekompozicijski modeli, Konstruktivni modeli, rubni prikaz
+    34.Rubni prikaz na temelju opisa bridova modela je:
+    Opisan bridovima koji tvore zatvorenu petlju tj. omeđuju površinu. Prilikom zapisivanja 
+    vodi se računa o orijentaciji svakog brida. Površine se orijentiraju na taj način da su 
+    bridovi navedeni u smjeru kazaljke na satu gledano izvana na model. Svaki brid dijele na 
+    dvije površine, jednom u pozitivnoj i jednom u negativnoj orijentaciji.
+    35.Brzom izradom prototipova testira se:
+    Oblik, funkcija i sklapanje
+    36. Ispravnost Rubnog prikaza krutih tijela određuje se:
+    Euler – Pointcare jednadžbom
+    37.Karakteristika krutog tijela KRUTOST opisuje:
+    konfiguraciju apstraktnog tijela koja mora biti neovisna o lokaciji i orijentaciji tijela u 
+    prostoru
+    38.Postupci temeljeni na očvršćivanju kapljevina su:
+    Procesi u kojima je prisutan mehanizam očvršćivanja kapljevina temelje se na procesu 
+    fotopolimerizacije
+    39.PLM je:
+    Tehnologija upravljanja podacima, informacijama i znanjem o proizvodu i procesima 
+    tijekom životnog vijeka proizvoda
+    40.Generički oblik značajke je:
+    Geometrijski oblik koji se pridružuje značajki
+    41.Rubni prikaz temeljen na opisu vrhova modela definira:
+    Da se pojedini vrhovi pridružuju površinama, vrhovi pojedinih površina prikazuju se u 
+    nepromjenjivom redu, geometrijske informacije o površinama se ne zapisuju eksplicitno 
+    već putem koordinata vrhova i njihovog odnosa
+    42.Koje informacije mogu sadržavati atributi sklopa?
+    sadrže informacije o relativnim pozicijama dijelova ili značajki
+    43.Osnovni načini kreiranja korisničkih značajki su:
+    Ekstrudiranje, rotacija, projekcija, ekstrudiranje po krivulji
+    44.Baza standardnih dijelova prema DIN standardu sastoji se od:
+    • programa koji opisuje geometriju varijantnih dijelova
+    • datoteke osobina DIN V 4001
+    45.Što su biblioteke značajki i čemu služe?
+    Biblioteke značajki su skupine značajki kreirane u neku svrhu ( za neko područje
+    modeliranja), a služe kao pomoć pri izradi modela uporabom značajki
+    46.Što je jezgra CAD sustava?
+    CAD jezgra osnova je svake CAD programske aplikacije
+    47.Kako se naziva derivacija značajki ovisno o zadatku?
+    preslikavanje, transformacija (translacija) ili transmutacija značajki
+    48.Printanje se koristi kod sljedeći RPT tehnologija:
+    Multijet Modeling, Fused Deposition Modeling
+    49.Postupak izrade modela uporabom značajki čini:
+    Odabir konstrukcijske ravnine kreiranje skice...
+    50.Pristup modeliranju uporabom značajki je:
+    Tehnika modeliranja koja omogućuje integriranje geometrijskog modeliranja i 
+    konstruiranja
+    51.Format datoteke koji se koristi kao osnova za izradu kodova za RPT uređaje je:
+    STL
+    52.Primjeri nastanka neispravnih značajki su:
+    53.Ograničenja u parametarskom pristupu rješavaju se:
+    sekvencijalnom uporabom vrijednosti varijabli te njihovim izračunavanjem
+    54.Kategorije značajki su:
+    značajke: oblika, tolerancije, sklopa, funkcije i materijala
+    55.Kako se dijele osobine značajki s obzirom na broj značajki na koje se odnose?
+    Osobine značajki mogu se podijeliti na unutarnje i vanjske
+    56.Postupak izrade modela klasičnim pristupom:
+    Model se kreira uporabom Boolean operatora
+    57.Kako s dijele značajke prema standardu STEP dio 48?
+    volumenske, tranzicijske i šablone
+    58.RPT tehnologija je najpovoljnija za izradu:
+    Ne konvencionalnih proizvoda
+    59.Koji se pristupi izdvajaju u konstruktivnom modelu krutih tijela?
+    Modeli kreirani uporabom poluprostora, CSG modeli
+    60.Što su značajke funkcije?
+    skup značajki vezanih za određenu funkciju, može uključivati "design intent", 
+    negeometrijske parametre vezane za funkciju ili učinak
+    61.Koje su prednosti uporabe dobro definiranih standardnih metoda neovisnih o 
+    proizvođaču?
+    • Prenosivost podataka između aplikacija
+    • Prenosivost stručnih znanja I vještina
+    • Prenosivost aplikacija neovisno o sklopovlju i operacijskom sustavu
+    62.Što je IGES?
+    Neutralni format za zapis grafičkih podataka
+    63.Kada se pojavila prva metoda modeliranjem uporabom značajki?
+    Krajem 80ih
+    64.Karakteristiku krutog tijela KONAČNOST definira:
+    Da tijelo mora zauzimati konačan dio prostora
+    65.Provjeru ispravnosti značajki: kontrola interakcije karakterizira:
+    provjera interakcije jedne značajke prema drugoj
+    66.U koje kategorije možemo podijeliti ograničenja?
+    • geometrijska ograničenja
+    • dimenzijska ograničenja
+    • algebarska ograničenja
+    67.Samuel P. Geisber poznat je po:
+    Osnivanju PTC-a
+    68.Koje informacije mogu sadržavati atributi relacija?
+    sadrže informacije o relativnim odnosima
+    69.Brza izrada prototipova naziva se i:
+    Aditivna proizvodnja
+    70.Koja je osnovna motivacije za razvoj značajki?
+    Osnovna motivacije za razvoj značajki je u tome što konvencionalne geometrijske 
+    metode izrade modela proizvoda imaju slične mane
+    71.CSG stablo sastoji se od:
+    opisa regulariziranih Boolean operatora ili transformacija, opisa primitiva
+    72.Kakve su to generičke osobine značajki?
+    Potrebno ih je definirati samo jednom za određenu familiju značajki
+    73.Koje funkcionalnosti omogućuje uporaba CAD jezgre?
+    Kreiranje znacajki Boolean operacije, izracunavanje mase, kreiranje ljuski, ekrportiranje 
+    geometrije, undo, graficki prikaz
+    74.Što s reference u modeliranju uporabom značajki?
+    Entiteti u odnosu na koje se pozicionira ili orijentira značajka
+    75.Nedostatak geometrijskog modela: ZAMORNO KONSTRUIRANJE karakterizira:
+    kreiranje geometrijskog modela je spor proces u kojem konstruktor troši puno vremena
+    76.Operatori koji se koriste u CSG pristupu su:
+    Regularizirani Boolean operatori
+    77.Brza izrada prototipova u kontekstu kriterija form nam služi za provjeru:
+    • Pogodnost oblika
+    • Ergonomičnosti 
+    78.LOM je:
+    Proces u kojem računalom upravlja zraka isijeca konturu iz folije
+    79.Pri korištenju SLS aditivnih principa, novi se materijal na radnu površinu doprema:
+    Rotirajućim cilindrom
+    80.Pri korištenju FDM aditivnih principa, novi se materijal na radnu površinu doprema:
+    Ekstruderom 
+    81.Koje su prednosti Jupiter Tesselation-a (JT)?
+    82.Što su to značajke materijala?
+    Predstavljaju sastav materijala, tretman, uvjeti, itd
+    83.Što sadržava logička okolina po CGRM modelu?
+    sadrži sliku koja je priređena uzimajući u obzir osnovna svojstva prikaznih uređaja kao 
+    što su minimalna širina crte i broj raspoloživih boja.
+    84.Što je Visual Basic?
+    treća generacija event-driven programskog jezika i integriranog razvojnog okruženja 
+    (IDE) razvijenog od strane tvrtke Microsofta
+    85.Što su to kompozitne značajke?
+    Značajke grupirane tako da tvore jedinstvenu cjelinu
+    86.Što omogućuje Pack and Go?
+    prikupljanje svih datoteka vezanih uz određeni model u direktorij ili .zip dadoteku
+    87.Što možete konfigurirati u modelu dijela (part)?
+    • Dimenzije modela na razini dijela
+    • Materijal modela na razini dijela
+    • Značajke modela na razini dijela
+    88.Kada je moguće izbrisati konfiguraciju?
+    U trenutku kada konfiguracija nije aktivirana
+    89.Pri relativnom pozicioniranju oblika, pozicije točaka i linija:
+    Definirane su međusobno
+    90.Dodatne aktivnosti nakon izrade samog prototipa aditivnim tehnologijama mogu 
+    uključivati:
+    • uklanjanje potporne strukture
+    • čišćenje viška materijala
+    • ručno unaprjeđenje glatkoće površine
+    91.Koje metode se koriste za izradu konfiguracija na razini dijela (part)?
+    • Korištenjem dijaloškog okvira Modify Configurations za konfigurirane parametre
+    • Ručno dodavanje konfiguracija preko Configuration Managera
+    • Korištenjem Design Table za kreiranje i upravljanje konfiguracijama pomoću microsoft 
+    Excel sučelja
+    92.Po kojim se osobinama razlikuju STEP i IGES?
+    • mogućnost snimanja 3D krutih tijela
+    • mogućnost uporabe u različitim fazama životnog ciklusa (PDM/PLM)
+    • mogućnost uređivanja modela
+    • još uvijek postoje aktivna podrška i razvoj
+    93.Ograničenja u varijacijskom pristupu rješavaju se:
+    kreiranjem sustava jednadžbi koje predstavljaju ograničenja te rješavanjem istih 
+    istovremeno
+    94.Što je STEP?
+    Standard za razmjenu podataka
+    95.Design table funkcionalnost u Solidworksu se zasniva na prednostima alata:
+    Microsoft Excel 
+    96.Kako možemo grupirati osobine značajki s obzirom na način definicije osobina značajki?
+    Generičke i specifične
+    97.Načini dekompozicije elemenata u dekompozicijskom modelu krutih tijela su:
+    • podjela s jednakim korakom
+    • dijeljenje na četvrtine 2D
+    • dijeljenje na osmine 3D
+    • volumske čelije
+    98.Što su ACIS i PARASOLID?
+    3D kerneli za modeliranje
+    99."Nesavršenosti" kružnih oblika u CAD okruženju uzrokovana je:
+    Grafičkom podrškom
+    100. CSG kao shemu za izradu krutih modela formalizirao je:
+    A.Ricci
+    101. Od navedenih, odaberite značajke s kojima je moguće izraditi pojedinačnu rupu:
+    Hole, Revolved i Extrude cut
+    102. Kakve su to specifične osobine značajki?
+    one koje vrijede za svaku instancu značajke zasebno
+    103. Naredba "Set swApp = Application.SldWorks
+    Instancira oblik tipa SldWorks
+    104. Koji su nedostaci geometrijskih modela?
+    • Jednorazinska struktura
+    • zamorno konstruiranje
+    • Nedostatak podrske 
+    • design intentu
+    • mikroskopski podaci
+    105. Operacija koja se provodi na izoliranom dijelu objekta te se upotrebljava za specifične 
+    promjene naziva se:
+    Lokalna 
+    106. Karakteristika krutog tijela - Zatvorenost pod osnovnim transformacijama i nekim 
+    Boolean operacijama definira:
+    osnovne transformacije (translacija i/ili rotacija) ili operacije dodavanja i oduzimanja kada 
+    se primjene na tijelo moraju rezultirati također tijelom
+    107. Gdje se koristi EXPRESS jezik modeliranja podataka?
+    U zapisima STEP datoteka
+    108. Koje su karakteristike VDA-FS standarda?
+    • zamišljen je za prijenos zapisa površinskih modela
+    • bio je obavezan za njemačku automobilsku industriju
+    109. U novije vrijeme (zadnjih 10-ak godina), format datoteke koji se koristi kao osnova za 
+    izradu kodova za RPT uređaje je (sadrži dodatne informacije u osnodu na STL):
+    STEP
+    110. Označite tvrdnje koje vrijede za ACIS jezgru:
+    • U vlasništvu je tvrtke spatial...
+    • izrađena je na osnovu jezgre Romulus
+    • omogućuje izradu hibridnih modela
+    111. Koji su nedostaci CGS pristupa?
+    • dozvoljeni su samo Boolean operatori, iz tog razloga je nemoguće kreirati neobične
+    oblike
+    • zahtjeva veliku količinu procesorskog vremena za pripremu prikaza
+    112. Kopiranje krutih tijela (solid) i transformacije tih kopija u regularne obrasce provodi se 
+    pomoću: Operacije izrade obrasca (Pattern)
+    113. Koju od navedenih metoda izrade konfiguracija stručnjaci predlažu ubog brzine rada i 
+    kontrole izrade brojnih konfiguracija? Korištenjem „Design Table“ Blank opcije
+    114. Koje informacije mogu sadržavati atributi dijela?
+    sadrže specifikacije materijala, broj dijela, administrativne podatke…
+    115. Korisničke značajke su:
+    Značajke koje se kreiraju tako da se odabere konstrukcijska ravnina zatim se u njoj kreira 
+    skica te na osnovu skice zadaje definicija značajke
+    116. Što omogućava uklanjanje međudijela pri kontaktu dviju negativne ekstruzije?
+    Priroda Boolean operacija
+    117. VBA kod interpretira:
+    Host aplikacija
+    118. Koja operacija podrazumijeva interpolaciju serije profila?
+    119. Što omogućava opcija kreiranja konfiguracija u 3D CAD programskom paketu 
+    Solidworks?
+    Kreiranje većeg broja varijacija dijelova i sklopova u okviru pojedinog dokumenta
+    120. Što je prevoditelj?
+    računalni program koji čita program napisan u izvornom jeziku, te ga prevodi u istovjetni 
+    program u ciljnom (najčešće strojnom) jezik
+    121. Koje informacije mogu sadržavati atributi entiteta?
+    sadrže informacije o kvaliteti površinske obrade i tolerancije oblika i položaja
+    122. Option explicit postavlja:
+    Obaveznu deklaraciju varijabli
+    123. Glavni ulazni parametri za izradu skošenja su u CAD okruženju:
+    • Kut skošenja
+    • vrijednost dubine skošenja
+    • površina, brid ili vrh
+    124. Što je Solidworks Explorer?
+    Alat za upravljanje Solidworks datotekama
+    125. Osobine CSG prikaza krutih tijela su:
+    • Mogućnosti ovise o klasama dostupnih poluprostora te o dostupnim osnovnim oblicima
+    • Budući da je skup Boolean operatora sastavni dio CSG stabla su unija dva različita CSG 
+    stabla kreirat će se u novo ispravno CSG stablo.
+    • CSG stablo osigurava ispravnost modela te omogućuje kontrolu istih. U većini slučajeva
+    za prikaz CSG modela koristi se rubni prikaz(B-rep)
+    • CSG stablo opisuje jednoznačan ali ne jedinstven prikaz modela, jedan od razloga je i taj 
+    sto se model može kreirati kombinacijom različitih osnovnih oblika
+    126. Pregled svih konfiguracija nekog modela u okviru Manager Pane-a nalazi se u:
+    Configuration Manageru
+    127. Proizvodnja aditivnim tehnologijama omogućuju najveću uštedu u odnosu na 
+    proizvodnju tradicionalnim tehnologijama za:
+    Nekonvencionalne proizvode
+    128. Statička biblioteka je:
+    skup rutina, vanjskih funkcija i varijabli koje se rješavaju u pozivatelju prilikom prevođenja
+    129. Što je JT (Jupiter Tesselation)?
+    • format primarno optimiziran za 3D vizualizaciju
+    • format koji se može koristiti za razmjenu podataka između CAD sustava
+    130. Neki od razloga za prilagodbu su:
+    • pojednostavljivanje poslova, skraćivanje vremena, smanjenje grešaka
+    • automatizacija poslova, razvoj korisnih alata, razvoj dodatnih modula
+    131. Jednostavna provedba lokalnih operacija jedna je od prednosti:
+    B-Rep-a nad CSG-om
+    132. Označite tvrdnje koje vrijede za Parasolid jezgru:
+    • na jezgri je baziran Adams
+    • moguće je izvesti 3D podatke o krutim tijelima i površinama
+    • moguće je licenciranje jezgre od strane drugih tvrtki
+    133. Označite tvrdnje koje vrijede za GRANITE jezgru:
+    • moguće je licencirati jezgre od strane drugih tvrtki
+    • temelji se na modeliranju značajkama
+    • teži direktnom čitanju zapisa svake aplikacije
+    134. Na koje tipove se mogu podijeliti Volumenske značajke?
+    Prolazni, utori, zatvorene rupe, izdanci, spojnice, samostalan volumen
+    135. Pomoću opcije "Configure features" pristupa se:
+    Dijaloskom okviru Modify Configurations
+    136. Čemu služi opcija "Use in Bill of Material" pri kreiranju konfiguracija?
+    Prikaz informacija o konfiguraciji u popisu dijelova
+    137. Koje informacije mogu sadržavati atibuti značajke?
+    pozicija, orijentacija, oblik, dimenzija…
+    138. VBA ne podržava:
+    139. Što sadržava virtualna okolina po CGRM modelu?
+    transformacije modela iz konstrukcijske okoline
+    140. Konstruktivni modeli krutih tijela:
+    Kreiraju se kao kombinacija geometrijskih primitiva i boolean operacija
+    141. Pri korištenju LOM aditivnih principa, novi se materijal na radnu površinu doprema:
+    valjcima
+    142. Koje su vanjske osobine značajke?
+    • parametri i dimenzije deriviranih značajki
+    • pozicija značajke i orijentacija značajke
+    • ograničenja veličine, lokacije 
+    • ograničenja lokacije ili orijentacije, vanjske tolerancije
+    143. Visual Basic i Visual Basic.NET su:
+    Potpuno nekompatibilni
+    144. Što sadržava realizacijska okolina po CGRM modelu?
+    sadrži krajnji prikaz potpuno prilagođen prikazanom uređaju
+    145. Što omogućuje Design Table?
+    kreiranje konfiguracija pomoću integriranog Microsoft Excel sučelja
+    146. Koje su prednosti CSG pristupa?
+    • jednostavno kreiranje modela krutih tijela (minimalan broj koraka)
+    • način zapisa rezultira sažetoj bazi podataka 
+    • primitivi se kreiraju na osnovu poluprostora
+    147. Poziv GetOBject služi:
+    Za povezivanje s aktivnom aplikacijom
+    148. Što je kruto tijelo?
+    idealizirano tijelo nepromjenjiva oblika i volumena
+    149. Koje su unutarnje osobine značajke?
+    • ovisne dimenzije i parametri, unutarnje tolerancije
+    • tolerancije oblika i položaja, tolerancije orijentacije
+    • geometrijski oblik, imena parametara
+    • korisnički definirane dimenzije i parametri
+    150. Za što se koristi jezgra CAD sustava?
+    CAD jezgra osnova je svake CAD programske aplikacije
+    151. Koji dio sučelja je namijenjen za aktivaciju konfiguracija?
+    Configuration Mnager
+    152. Označite tvrdnje koje vrijede za CGM jezgru:
+    • Na jezgri su bazirane catia v5 i v6 
+    • Ne posjeduje samostalno programsko sučelje
+    153. Što je dobro kod izrade modela krivuljama i površinama?
+    Brzi algoritmi za prikaz i kreiranje, manja kompleksnost baze crteža, bolja mogućnost 
+    razmjene podataka s drugim CAD programskim aplikacijama
+    154. Debljina sloja pri korištenju LOM aditivnih principa definirana je:
+    Debljinom folije (materijala)
+    155. CSG prikaz modela krutih tijela opisuje:
+    Prikaz modela krutih tijela kao uređeni binarni graf čiji medučvorovi označavaju osnovne 
+    operatore i pomake, a krajnji čvorovi ili osnovne oblike ili pomake
+    156. Četiri važna vanjska objekta, prema CGRM-u, su:
+    programska aplikacija, operator (korisnik), prikupljanje podataka (metafile) i revizijski trag 
+    (metafile)
+    157. Kako se kreiraju poluprostorni primitivi?
+    kreiraju se dijeljenjem prostora
+    158. Što sadržava prostor promatranja po CGRM modelu?
+    sadrži idealnu sliku koja se tvori transformacijom scene iz virtualne okoline s defiliranim 
+    smjerom gledanja i gledišnom točkom
+    159. Priprema parametra aditivne proizvodnje uključuje definiranje:
+    • Materijala
+    • Brzine nanošenja materijala
+    • Temperature
+    • Volumetrijski protoka
+    • Hlađenja
+    160. Provjeru ispravnosti značajki: ispravnost priključivanja karakterizira:
+    uključuje kontrolu kompatibilnosti prema susjednim i drugim značajkama
+    161. Macro u Solidworksu možemo snimiti u:
+    • VB.NET
+    • C++
+    • VBA
+    • Java
+    162. VBA razvojno sučelje podržava IntelliSense tehnologiju? Da 
+    163. Kako bi se uskladili presjeci različitih topologija koji se koriste za provedbu operacije 
+    Loft, svaki pojedinačni presjek moguće je tretirati kao:
+    164. Što omogućuje opcija "Supress features" prilikom kreiranja konfiguracije?
+    Nove značajke koje se dodaju drugim konfiguracijama neće biti dodane kreiranoj 
+    konfiguraciji
+    165. Nedostatak geometrijskog modela: Mikroskopski podaci karakterizira:
+    podaci u geometrijskom modelu se nalaze na niskom nivou
+    166. Forma ima ekskluzivan fokus upravo opcije: vbModal 
+    167. Odaberite značajke kojima je u CAD alatima moguće modelirati provrte:
+    Hole, Revolved i Extrude cut
+    168. Pri korištenju SLS aditivnih principa, radni materijal je:
+    Metalni ili nemetalni puder 
+    169. Dekompozicijski model krutih tijela su:
+    Modeli koji predstavljaju skup ili kolekciju jednostavnih modela povezanih operacijom 
+    “lijepljenja”
+    170. Kreiranje Design Table-a je omogućeno pomoću:
+    konfiguriranja većinu istih parametara kao i kod ručne izrade konfiguracija
+    171. U kojem dijelu sučelja aktiviramo konfiguracije?
+    U Configuration Manageru
+    172. Neka geometrijska ograničenja su:
+    okomitost, horizontalnost, tangentnost, koncentričnost, koincidentnost...
+    173. Što sadržava konstrukcijska okolina prema CGRM modelu?
+    sadrži grafički model definiran u terminima i jedinicama aplikacije
+    174. Dodatne reference u Solidworksu služe za:
+    175. Koji su nedostaci neutralnih formata?
+    • gubitak informacija o značajkama modela
+    • gubitak informacija o povijesti nastanka modela
+    176. Osobina važna za organizaciju History tree-a pri modeliranju je:
+    Logička struktura
+    177. STEP standard se sastoji od:
+    Aplikativnog dijela, logičkog dijela, fizičkog dijela
+    178. Što je dinamička biblioteka?
+    Microsoftova izvedba koncepta dijeljenih biblioteka u sustavu Microsoft Windows
+    179. Karakteristika krutog tijela ODREĐENOST OPLOŠJA definira:
+    Da oplošje tijela mora jednoznačno definirati prostor unutar tijela (volumen)
+    180. Računalni modeli krutih tijela moraju zadovoljavati sljedeće karakteristike:
+    Krutost, homogena trodimenzionalnost, konačnost, konačnost opisa, određenost oplošja 
+    i zatvorenost pod osnovnim i nekim Boolean operacijama
+    181. VBA je: (jedno od ovog će valjda bit ponuđeno)
+    • implementacija Microsoft Visual Basic event-driven programskog jezika
+    • Deklarativnost određuje korisnik
+    182. Postupci aditivne proizvodnje temeljeni na materijalima u čvrstom stanju su:
+    183. U strojarstvu se najčešće koriste STEP:
+    • AP203 Configuration Controlled Design
+    • AP214 Core Data for Automotive MechanicalDesign Process
+    184. Što je asocijativnost i čemu služi?
+    Asocijativnost je mehanizam CAD aplikacija za dijeljenje informacija između različitih
+    modula aplikacije
+    185. Pri korištenju FDM aditivnih principa, radni materijal je:
+    Termoplastični materijal
+    186. Generički tipovi kontrole ispravnosti značajki su:
+    ispravnost priključivanja, granice dimenzija, granice lokacije, kontrola interakcije
+    187. Brza izrada prototipova u kontekstu kriterija fit nam služi za provjeru:
+    Veza između dijelova
+    188. Od navedenih zapisa, označite koji se pojavio prvi, a koji posljednji na tržištu:
+    IGES i JT
+    189. Neke od glavnih prednosti aditivne proizvodnje su:
+    • Kompleksnost dijelova
+    • Izrada funkcionalnih sklopova
+    • Smanjenje broja dijelova
+    • Masovna prilagodba korisnicima
+    • Sloboda oblikovanja
+    • Izrada lakih konstrukcija
+    • On-Demand proizvodnja
+    190. Koji od navedenih principa može pomoći razmjeni informacija između različitih CAD 
+    aplikacija? Neutralan format
+    191. Od čega se sastoji logički dio STEP-ISO 10303 standarda?
+    • od shema koje obuhvaćaju entitete s atributima, pravilima i ograničenjima
+    • od podataka o proizvodu
+    192. U slučaju da topologije različitih presjeka nisu usklađene pri provedbi operacije Loft, 
+    CAD programski paketi:
+    Ubacuju nove vrhove na pojedine presjeke
+    193. Objekt je:
+    Instanca klase
+    194. Značajke funkcije čini:
+    skup značajki vezanih za određenu funkciju, može uključivati "design intent"
+    195. Nedostatak geometrijskog modela: JEDNORAZINSKA STRUKTURA karakterizira:
+    znači da se čitava geometrijska struktura modela mora unaprijed znati tj. biti definirana u 
+    obliku koordinata vrhova, orijentacija bridova, geometrijskih lokacija
+    196. Što je interpreter?
+    Računalni program koji izvršava drugi program te ga prevodi u trenutku izvođenja 
+    programa
+    197. Osobine značajki su:
+    • Generički oblik, parametri dimenzija, parametri i relacije ograničenja
+    • Parametri orijentacije, ograničenja dimenzija, lokacije i orijentacije, pravila i procedure 
+    kontrole ispravnosti, negeometrijski atributi
+    • Podrazumijevajuće vrijednosti parametara, metode određivanja lokacije, parametri 
+    izračunati na osnovu drugih značajki, pravila i procedure nasljeđivanja
+    • Parametri lokacija, metode orijentacije, procedure, kreiranja geometrijskog modela, 
+    algoritmi prepoznavanja
+    198. Poziv CreateObject služi za:
+    199. Značajke materijala su:
+    Sastav materijala, uvjeti uprabe, mehanicke i toplinske osobine
+    200. Ista topologija presjeka preduvjet je za jednostavnu i uspješnu provedbu:
+    201. Koji se elementi koriste u većini slučajeva za pristup "odozgora prema dolje"?
+    Skeletoni 
+    202. Koje se relacije mogu kreirati između komponenti sklopa?
+    203. Što omogućuje Solidworks Explorer?
+    Omogućuje nam pregled informacija o referencama Solidworks datoteka (gdje se i kako 
+    koristi) i njihovo pretraživanje
+    204. Od navedenih, odaberite lokalne operacije:
+    Chamfer i Fillet 
+    205. Brza izrada prototipova u kontekstu kriterija function nam služi za provjeru:
+    206. Klasa je:
+    osnovni tvorbeni blok objektno orijentiranog jezika
+    207. Što uključuje razvoj dodatnih aplikacija?
+    208. Koje su osobine dekompozicijskih modela?
+    • omogućuju aproksimativni (približan) prikaz
+    • prikaz se mijenja u slučaju promjene položaja,
+    • isti skup ćelija može opisivati nekoliko objekata
+    • jednostavna uporaba Boolean operatora kod ćelija
+    209. Skeleton čine:
+    Elementi geometrije koji služe kao reference
+    210. Kako aktiviramo konfiguraciju u okruženju dijela(part)
+    Pritiskom desne tipke misa na naziv konfiguracije te odabir Show configuration
+    Dvostruki pritisak lijeve tipke misa na naziv konfiguracije
+    211. Uzmi i postavi značajke su
+    Značajke koje su dostupne u CAD programu i kreirane su od strance proizvođača
+    programske aplikacije Koriste se na taj način da se odabere željena značajka i postavi se 
+    na model
+    212. Što je skica u pristupu izradi modela uporabom značajki?
+    Skica je entitet na osnovu kojega se kreira značajka a sastoji se od geometrijskih 
+    elemenata krivulja linija kružnica, kružnih lukova, točaka itd
+    213. Nedostatak geometrijskog modela : Nedostatak podrške design intentu karakterizira
+    Problem s geometrijskim modelima je i u tome što se ne može odrediti razlika između 
+    geometrije koja zadovoljava probleme kreiranja modela od onih koji su tu da bi zadovoljili 
+    neke funkcionalne zahtjeve
+    214. Uzmi i postavi značajke su:
+    • provrt udubljenje skošenje otvori ljuska
+    • Provrt zaobljenje skošenje rebro ljuska
+    • Izrada sklopa dijela i tehničke dokumentacije
+    215. Provjeru ispravnosti značajki : poključivanja karakterizira
+    Uključuje kontrolu kompatibilnosti prema susjednim i drugim značajkama
+    216. Koje informacije mogu sadržavati atributi značajke ?
+    Atributi značajke mogu biti pozicija orijentacija dimenzije oblik tolerancije
+    217. Option baze 0 postavlja:
+    Prvi element u polju na 0 
+    218. Kako možemo podijeliti kompozitne značajke?
+    Na one s ponavljanjem (šablone) i one bez ponavljanja (složene)
+    219. Objasnite pristup modeliranju uporabom značajki
+    Tehnika modeliranja koja omogućava integriranje geometrijskog modeliranja i 
+    konstruiranja</p>
+</body>
+</html>
